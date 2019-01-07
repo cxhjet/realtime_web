@@ -1,0 +1,13 @@
+{
+  "apps" : [
+        {
+    "name"       : "realtime_web",
+    "script"     : "/var/realtime_web/index.js",
+    "args" :["config=/etc/maxwin/realtime_web/3000.js"],
+    "instances"  : 4,
+    "exec_mode"        : "cluster_mode",
+    "log_date_format" : "YYYY-MM-DD HH:mm:ss.SSS",
+    "error_file" : "/data/logs/realtime_web-error-0.log",
+    "out_file"   : "/data/logs/realtime_web-out-0.log"
+        }]
+}
