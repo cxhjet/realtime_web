@@ -1,0 +1,27 @@
+version: '2'
+services:
+  realtime_web:
+    cpuset: 0,1,2,3
+    image: cxhjet/realtime_web:0.8
+    container_name: realtime_web
+    restart: always
+    ports:
+      - 3000:3000
+    extra_hosts:
+      - "sqlserver:192.168.40.53"
+    volumes:
+      - /var/maxwin/realtime_web/realtime_web.json:/var/realtime_web/realtime_web.json
+      - /data/logs:/data/logs
+       #- ./realtime_web:/var/realtime_web
+      - ./conf/realtime_web/3000.js:/etc/maxwin/realtime_web/3000.js
+      - /usr/share/zoneinfo/Asia/Taipei:/usr/share/zoneinfo/Asia/Taipei
+      - /usr/share/zoneinfo/Asia/Taipei:/etc/localtime/
+      - /etc/timezone:/etc/timezone
+    working_dir: /var/realtime_web
+    command: ["pm2","start","/var/realtime_web/realtime_web.json","--no-daemon"]
+    #command: ["pm2","start","/var/realtime_web/index.js","-i","4","config=/etc/maxwin/realtime_web/3000.js"]
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "10"
